@@ -1,0 +1,30 @@
+﻿@model Venda
+
+<div class="mb-3">
+    <label asp-for="DthVenda"></label>
+    <input asp-for="DthVenda" class="form-control" />
+</div>
+
+<div class="mb-3">
+    <label asp-for="Cliente"></label>
+    <select asp-for="ClienteId" class="form-control" asp-items="@ViewBag.Clientes">
+        <option>Selecione</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Produto"></label>
+    <select asp-for="ProdutoId" class="form-control" asp-items="@ViewBag.Produtos">
+        <option>Selecione</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label asp-for="VlrUnitarioVenda"></label>
+    <input asp-for="VlrUnitarioVenda" class="form-control" />
+</div>
+
+<div class="mb-3">
+    <label asp-for="QtdVenda"></label>
+    <input asp-for="QtdVenda" class="form-control" />
+</div>

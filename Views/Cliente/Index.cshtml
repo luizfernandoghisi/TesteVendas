@@ -1,0 +1,78 @@
+﻿@model List<Cliente>
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<h1>Listagem de Clientes</h1>
+<hr />
+@if(TempData["msg"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["msg"]
+    </div>
+}
+
+@if(TempData["msgRemove"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["msgRemove"]
+    </div>
+}
+
+<a asp-action="Inserir" class="btn btn-primary">Inserir Novo Cliente</a>
+
+<form class="form-inline mb-3">
+    <input type="text" class="form-control mr-2" name="nomeBusca" placeholder="Digite o nome do cliente" />
+    <input type="submit" value="Buscar" class="btn btn-success" />
+</form>
+
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Cidade</th>
+        <th>Ações</th>
+    </tr>
+    @foreach(Cliente c in Model)
+    {
+        <tr>
+            <td>@c.ClienteId</td>
+            <td>@c.NmCliente</td>
+            <td>@c.Cidade</td>
+            <td>
+                <a asp-action="Editar" asp-route-id="@c.ClienteId" class="btn btn-sm btn-warning">Editar</a>
+                    <button onclick="idCliente.value = @c.ClienteId" type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalExemplo">
+                        Excluir
+                    </button>
+            </td>
+        </tr>
+    }
+</table>
+
+    <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Excluir Cliente Cadastrado</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Deseja excluir esse cliente?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form asp-action="Excluir">
+                    <input type="hidden" name="id" id="idCliente" />
+                    <input type="submit" value="Excluir" class="btn btn-sm btn-danger" />
+                </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+

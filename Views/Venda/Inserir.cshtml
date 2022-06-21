@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Inserir Venda";
+}
+
+<h1>Inserir Nova Venda</h1>
+<hr />
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+<a asp-action="Index" class="btn btn-primary">Vendas</a>
+
+<form asp-action="Inserir">
+    <partial name="_Form" />
+
+    <input type="submit" value="Inserir" class="btn btn-success" />
+</form>
+

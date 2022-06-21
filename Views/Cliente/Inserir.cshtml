@@ -1,0 +1,21 @@
+﻿@model Cliente
+@{
+    ViewData["Title"] = "Inserir Cliente";
+}
+
+<h1>Inserir Novo Cliente</h1>
+<hr />
+
+@if(TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+<a asp-action="Index" class="btn btn-primary">Clientes</a>
+
+<form asp-action="Inserir"> 
+    <partial name="_Form"/>
+    <input type="submit" value="Salvar" class="btn btn-success" />
+</form>

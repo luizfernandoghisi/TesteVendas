@@ -1,0 +1,73 @@
+﻿@model List<Produto>
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<h1>Listagem de Produtos</h1>
+<hr />
+@if(TempData["msg"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["msg"]
+    </div>
+}
+
+@if(TempData["msgRemove"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["msgRemove"]
+    </div>
+}
+
+<a asp-action="Inserir" class="btn btn-primary">Inserir Novo Produto</a>
+
+<form class="form-inline mb-3">
+    <input type="text" class="form-control mr-2" name="dscBusca" placeholder="Digite a descrição do produto" />
+    <input type="submit" value="Buscar" class="btn btn-success" />
+</form>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Descrição</th>
+        <th>Valor Unitário</th>
+        <th>Ações</th>
+    </tr>
+    @foreach(Produto p in Model)
+    {
+        <tr>
+            <td>@p.ProdutoId</td>
+            <td>@p.DscProduto</td>
+            <td>@p.VlrUnitario.ToString("C")</td>
+            <td>
+                <a asp-action="Editar" asp-route-id="@p.ProdutoId" class="btn btn-sm btn-warning">Editar</a>
+                    <button onclick="idProduto.value = @p.ProdutoId" type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalExemplo">
+                        Excluir
+                    </button>
+            </td>
+        </tr>
+    }
+</table>
+
+    <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Excluir Produto Cadastrado</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Deseja excluir esse produto?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form asp-action="Excluir">
+                    <input type="hidden" name="id" id="idProduto" />
+                    <input type="submit" value="Excluir" class="btn btn-sm btn-danger" />
+                </form>
+          </div>
+        </div>
+      </div>
+    </div>

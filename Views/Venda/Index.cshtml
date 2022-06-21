@@ -1,0 +1,82 @@
+﻿@model List<Venda>
+@{
+    ViewData["Title"] = "Vendas";
+}
+
+<h1>Listagem de Vendas</h1>
+<hr />
+@if(TempData["msg"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["msg"]
+    </div>
+}
+
+@if(TempData["msgRemove"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["msgRemove"]
+    </div>
+}
+
+<a asp-action="Inserir" class="btn btn-primary">Inserir Nova Venda</a>
+
+<form class="form-inline mb-3">
+    <input type="text" class="form-control mr-2" name="busca" placeholder="Digite o nome do cliente ou a descrição do produto" />
+    <input type="submit" value="Buscar" class="btn btn-success" />
+</form>
+
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Data da Venda</th>
+        <th>Cliente</th>
+        <th>Produto</th>
+        <th>Valor</th>
+        <th>Quantidade</th>
+        <th>Total</th>
+        <th>Ações</th>
+    </tr>
+    @foreach(Venda v in Model)
+    {
+        <tr>
+            <td>@v.VendaId</td>
+            <td>@v.DthVenda.ToShortDateString()</td>
+            <td>@v.Cliente.NmCliente</td>
+            <td>@v.Produto.DscProduto</td>
+            <th>@v.Produto.VlrUnitario.ToString("C")</th>
+            <th>@v.QtdVenda</th>
+            <th>@v.VlrTotalVenda.ToString("C")</th>
+            <td>
+                <a asp-action="Editar" asp-route-id="@v.VendaId" class="btn btn-sm btn-warning">Editar</a>
+                    <button onclick="idVenda.value = @v.VendaId" type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalExemplo">
+                        Excluir
+                    </button>
+            </td>
+        </tr>
+    }
+</table>
+
+    <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Excluir Venda Cadastrada</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Deseja excluir essa Venda?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form asp-action="Excluir">
+                    <input type="hidden" name="id" id="idVenda" />
+                    <input type="submit" value="Excluir" class="btn btn-sm btn-danger" />
+                </form>
+          </div>
+        </div>
+      </div>
+    </div>

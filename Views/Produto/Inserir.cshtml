@@ -1,0 +1,20 @@
+﻿@model Produto
+@{
+    ViewData["Title"] = "Inserir Produto";
+}
+
+<h1>Inserir Novo Produto</h1>
+<hr />
+@if(TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+<a asp-action="Index" class="btn btn-primary">Produtos</a>
+
+<form asp-action="Inserir"> 
+    <partial name="_Form"/>
+    <input type="submit" value="Salvar" class="btn btn-success" />
+</form>
